@@ -1,0 +1,37 @@
+---
+driver:
+  name: vagrant
+  customize:
+    memory: 2048
+
+provisioner:
+  name: chef_solo
+  require_chef_omnibus: "12.6.0"
+  environments_path: environments
+  solo_rb:
+    file_atomic_update: false
+
+platforms:
+  - name: centos-6.7
+    driver_config:
+      platform: rhel
+  - name: centos-7.1
+    driver_config:
+      platform: rhel
+
+suites:
+  - name: default
+    run_list:
+      - recipe[certie::default]
+      - recipe[certie::selfsigned]
+    attributes:
+      certie:
+        email: "devops@devops.com"
+        organization: "Devops Limited"
+        domains:
+          happyslap.com:
+            - happyslap.com
+            - www.happyslap.com
+            - staging.happyslap.com
+          orange.com:
+            - orange.com
