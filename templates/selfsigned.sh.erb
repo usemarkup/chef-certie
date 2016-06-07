@@ -1,5 +1,4 @@
 #!/bin/bash
 
 openssl genrsa -out <%=@path%><%=@domain%>.key 2048
-openssl req -new -key <%=@path%><%=@domain%>.key -out <%=@path%><%=@domain%>.csr -config <%=@path%>openssl.cnf
-openssl x509 -req -days 365 -in <%=@path%><%=@domain%>.csr -signkey <%=@path%><%=@domain%>.key -out <%=@path%><%=@domain%>.pem -outform PEM
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout <%=@path%><%=@domain%>.key -out <%=@path%><%=@domain%>.pem -outform PEM -config <%=@path%>openssl.cnf

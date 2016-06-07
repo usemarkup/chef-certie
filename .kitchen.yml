@@ -23,7 +23,6 @@ suites:
   - name: default
     run_list:
       - recipe[certie::default]
-      - recipe[certie::selfsigned]
     attributes:
       certie:
         email: "devops@devops.com"

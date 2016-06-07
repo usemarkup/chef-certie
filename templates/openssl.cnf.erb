@@ -205,7 +205,7 @@ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 subjectAltName = @alt_names
 
 [ v3_ca ]
-
+subjectAltName = @alt_names
 
 # Extensions for a typical CA
 
@@ -240,6 +240,11 @@ basicConstraints = CA:true
 # Where 'obj' is a standard or added object
 # You can even override a supported extension:
 # basicConstraints= critical, DER:30:03:01:01:FF
+
+[ alt_names ]
+<% @domains.each_with_index do |domain, index| %>
+DNS.<%=index+1%> = <%=domain%>
+<% end %>
 
 [ crl_ext ]
 
@@ -331,8 +336,3 @@ tsa_name		= yes	# Must the TSA name be included in the reply?
 # (optional, default: no)
 ess_cert_id_chain	= no	# Must the ESS cert id chain be included?
 # (optional, default: no)
-
-[ alt_names ]
-<% @domains.each_with_index do |domain, index| %>
-DNS.<%=index+1%> = <%=domain%>
-<% end %>

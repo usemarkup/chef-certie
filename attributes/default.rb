@@ -8,5 +8,6 @@ default['certie']['domains'] = {}
 default['certie']['upgrade_packages'] = true
 
 # for Certbot (letsencrypt)
-default['certie']['certbot_webroot'] = '/var/www'
+default['certie']['certbot_webroot'] = '/var/www/certbot'
+default['certie']['certbot_path'] = '/etc/letsencrypt'
 
