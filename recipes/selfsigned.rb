@@ -39,20 +39,14 @@ node['certie']['domains'].each do |domain, domains|
   link "#{domain} link private key" do
     to "#{selfsigned_path}#{domain}.key"
     target_file "#{node['certie']['certificate_path']}/#{domain}.key"
-    not_if { ::File.file?("#{node['certie']['certificate_path']}#{domain}.key") }
+    not_if { ::File.file?("#{node['certie']['certificate_path']}/#{domain}.key") }
     action :create
   end
 
   link "#{domain} link cert pem" do
     to "#{selfsigned_path}#{domain}.pem"
     target_file "#{node['certie']['certificate_path']}/#{domain}.pem"
-    not_if { ::File.file?("#{node['certie']['certificate_path']}#{domain}.pem") }
+    not_if { ::File.file?("#{node['certie']['certificate_path']}/#{domain}.pem") }
     action :create
   end
-  #
-  # //privkey.pem
-  # //cert.pem
-  # //chain.pem
-  # //fullchain.pem
-
 end
