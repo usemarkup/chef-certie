@@ -25,7 +25,7 @@ node['certie']['domains'].each do |domain, domains|
   end
 
   link "#{domain} link cert pem" do
-    to "#{node['certie']['certbot_path']}/#{domain}/fullchain.pem"
+    to "#{node['certie']['certbot_path']}/live/#{domain}/fullchain.pem"
     target_file "#{node['certie']['certificate_path']}/#{domain}.pem"
     action :create
   end
