@@ -1,3 +1,5 @@
 .idea
 .kitchen
+.bundle
+vendor
 *.lock
