@@ -30,23 +30,25 @@ node['certie']['domains'].each do |domain, domains|
   end
 
   execute "#{domain}-selfsigned-cert" do
-    command "generate-selfsign-#{domain}.sh"
+    command "/usr/local/bin/generate-selfsign-#{domain}.sh"
     cwd '/usr/local/bin/'
     creates "#{domain}.pem"
     action :run
   end
 
-  link "#{domain} link private key" do
-    to "#{selfsigned_path}#{domain}.key"
-    target_file "#{node['certie']['certificate_path']}/#{domain}.key"
-    not_if { ::File.file?("#{node['certie']['certificate_path']}/#{domain}.key") }
-    action :create
-  end
+  domains.each do |domain_certificate|
+    link "#{domain_certificate} link private key" do
+      to "#{selfsigned_path}#{domain}.key"
+      target_file "#{node['certie']['certificate_path']}/#{domain_certificate}.key"
+      not_if { ::File.file?("#{node['certie']['certificate_path']}/#{domain_certificate}.key") }
+      action :create
+    end
 
-  link "#{domain} link cert pem" do
-    to "#{selfsigned_path}#{domain}.pem"
-    target_file "#{node['certie']['certificate_path']}/#{domain}.pem"
-    not_if { ::File.file?("#{node['certie']['certificate_path']}/#{domain}.pem") }
-    action :create
+    link "#{domain_certificate} link cert pem" do
+      to "#{selfsigned_path}#{domain}.pem"
+      target_file "#{node['certie']['certificate_path']}/#{domain_certificate}.pem"
+      not_if { ::File.file?("#{node['certie']['certificate_path']}/#{domain_certificate}.pem") }
+      action :create
+    end
   end
 end
