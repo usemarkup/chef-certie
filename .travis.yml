@@ -1,0 +1,25 @@
+language: ruby
+dist: trusty
+
+matrix:
+  include:
+  - rvm: 2.3
+    env: suite=centos-7-chef-latest
+  - rvm: 2.3
+    env: suite=centos-7-chef-12
+  - rvm: 2.3
+    env: suite=centos-7-chef-13
+  - rvm: 2.3
+    env: suite=centos-69-chef-12
+
+sudo: required
+services: docker
+
+group: deprecated-2017Q2
+
+before_script:
+- make install
+- make bundle
+- make style
+
+script: bundle exec kitchen test "$suite"
