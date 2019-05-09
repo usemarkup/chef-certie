@@ -7,6 +7,7 @@ driver:
 provisioner:
   name: chef_solo
   environments_path: environments
+  chef_license: accept-no-persist
   solo_rb:
     file_atomic_update: false
 
